@@ -30,6 +30,14 @@ module ForemanOpenscap
       combined.uniq
     end
 
+    def openscap_proxy_id
+      'this'
+    end
+
+    def openscap_proxy_id=(proxy_id)
+      'that'
+    end
+
     module ClassMethods
       def search_by_policy_name(key, operator, policy_name)
         cond = sanitize_sql_for_conditions(["scaptimony_policies.name #{operator} ?", value_to_sql(operator, policy_name)])

@@ -40,5 +40,14 @@ module ForemanOpenscap
        {:label => _("Failed"), :data => failed, :color => Colors[:failed]},
        {:label => _("Othered"), :data => othered, :color => Colors[:othered]}]
     end
+
+    def openscap_proxies(f)
+      proxies = SmartProxy.unscoped.with_features("Openscap").with_taxonomy_scope(@location,@organization,:path_ids)
+      return if proxies.count == 0
+      select_f f, :openscap_proxy_id, proxies, :id, :name,
+               { :include_blank => _('Select openscap proxy') },
+               { :label       => _("OpenSCAP proxy"),
+                 :help_inline => _("Use this openscap server as the Server or to recieve arf reports for this host.") }
+    end
   end
 end
