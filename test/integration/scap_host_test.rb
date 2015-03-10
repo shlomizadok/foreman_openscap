@@ -33,7 +33,7 @@ class ScapHostTest < ActionDispatch::IntegrationTest
     # switch to interfaces tab
     page.find(:link, "Compliance").click
 
-    page.find('#host_openscap_proxy_id').click
+    page.find('#host_asset_proxy_id').click
     # save_screenshot('/tmp/host_openscap.png')
   end
 end

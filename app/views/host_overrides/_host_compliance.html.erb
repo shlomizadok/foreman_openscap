@@ -1,3 +1,6 @@
 <div class="tab-pane" id="compliance">
-  <%= openscap_proxies(f) %>
+  <%= f.fields_for :asset do |asset_form| %>
+    <%= openscap_proxies(asset_form) %>
+    <%= openscap_policies(asset_form) %>
+  <% end %>
 </div>

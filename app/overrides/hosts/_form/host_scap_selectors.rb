@@ -1,5 +1,5 @@
 Deface::Override.new(:virtual_path => "hosts/_form",
-                     :name         => "tabab",
+                     :name         => "compliance_tab",
                      :insert_after => ".nav li:last",
                      :text         => "<li><a href='#compliance' data-toggle='tab'><%= _('Compliance') %></a></li>")
 

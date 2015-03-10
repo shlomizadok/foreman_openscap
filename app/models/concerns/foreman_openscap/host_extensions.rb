@@ -15,6 +15,12 @@ module ForemanOpenscap
                     :only_explicit => true, :operators => ['= ', '!= '], :ext_method => :search_by_policy_name
       scoped_search :in => :policies, :on => :name, :complete_value => true, :rename => :'compliance_report_missing_for',
                     :only_explicit => true, :operators => ['= ', '!= '], :ext_method => :search_by_missing_arf
+
+      accepts_nested_attributes_for :asset
+
+      def asset_attributes=(asset_attributes)
+        asset = get_asset
+      end
     end
 
     def get_asset
@@ -28,14 +34,6 @@ module ForemanOpenscap
     def combined_policies
       combined = self.policies + self.hostgroup.policies
       combined.uniq
-    end
-
-    def openscap_proxy_id
-      'this'
-    end
-
-    def openscap_proxy_id=(proxy_id)
-      'that'
     end
 
     module ClassMethods
