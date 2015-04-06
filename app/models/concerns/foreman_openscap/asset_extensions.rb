@@ -16,7 +16,8 @@ module ForemanOpenscap
     included do
       belongs_to :assetable, :polymorphic => true
       scope :hosts, where(:assetable_type => 'Host::Base')
-      belongs_to :proxy,    :class_name => "SmartProxy"
+      belongs_to :proxy, :class_name => "SmartProxy"
+      default_scope includes(:policies)
     end
 
     def host

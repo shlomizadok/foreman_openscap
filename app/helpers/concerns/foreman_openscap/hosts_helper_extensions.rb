@@ -51,6 +51,9 @@ module ForemanOpenscap
     end
 
     def openscap_policies(form)
+      multiple_selects(form, :policies, Scaptimony::Policy.unscoped,
+                       form.object.policy_ids,
+                       {:disabled => [] })
 
     end
   end
