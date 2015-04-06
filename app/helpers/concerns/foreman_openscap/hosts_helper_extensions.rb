@@ -1,3 +1,4 @@
+require 'pry'
 module ForemanOpenscap
   module HostsHelperExtensions
     extend ActiveSupport::Concern
@@ -45,16 +46,36 @@ module ForemanOpenscap
       proxies = SmartProxy.unscoped.with_features("Openscap").with_taxonomy_scope(@location,@organization,:path_ids)
       return if proxies.count == 0
       select_f form, :proxy_id, proxies, :id, :name,
-               { :include_blank => _('Select openscap proxy') },
+               { :include_blank => _('Select openscap proxy'), :selected => inherited_proxy(form.object) },
                { :label       => _("OpenSCAP proxy"),
                  :help_inline => _("Use this openscap server as the Server or to recieve arf reports for this host.") }
     end
 
     def openscap_policies(form)
       multiple_selects(form, :policies, Scaptimony::Policy.unscoped,
-                       form.object.policy_ids,
-                       {:disabled => [] })
+                       host_combined_policies(form.object),
+                       {:disabled => inherited_policies(form.object) })
+    end
 
+    def inherited_proxy(object)
+      if object.assetable.is_a?(Host::Base) && object.assetable.hostgroup.asset && object.assetable.hostgroup.asset.proxy
+        object.assetable.hostgroup.asset.proxy.id
+      end
+    end
+
+    def inherited_policies(object)
+      if object.assetable.is_a?(Host::Base)
+        object.assetable.hostgroup.policy_ids
+      end
+    end
+
+    def host_combined_policies(object)
+      # binding.pry
+      if object.assetable.is_a?(Host::Base)
+        object.assetable.combined_policies.map(&:id)
+      else
+        object.policy_ids
+      end
     end
   end
 end
