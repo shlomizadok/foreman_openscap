@@ -230,19 +230,43 @@ module ForemanOpenscap
 
     def populate_overrides(puppetclass, hostgroup)
       puppetclass.class_params.where(:override => true).each do |override|
-        if hostgroup.puppet_proxy && (url = hostgroup.puppet_proxy.url).present?
+        proxy_host = extract_hostgroup_proxy_host(hostgroup)
+        proxy_port = extract_hostgroup_proxy_port(hostgroup)
+        if proxy_host && proxy_port
           case override.key
             when SERVER_CLASS_PARAMETER
               lookup_value = LookupValue.where(:match => "hostgroup=#{hostgroup.to_label}", :lookup_key_id => override.id).first_or_initialize
-              puppet_proxy_fqdn = URI.parse(url).host
+              puppet_proxy_fqdn = proxy_host
               lookup_value.update_attribute(:value, puppet_proxy_fqdn)
             when PORT_CLASS_PARAMETER
               lookup_value = LookupValue.where(:match => "hostgroup=#{hostgroup.to_label}", :lookup_key_id => override.id).first_or_initialize
-              puppet_proxy_port = URI.parse(url).port
+              puppet_proxy_port = proxy_port
               lookup_value.update_attribute(:value, puppet_proxy_port)
           end
         end
       end
+    end
+
+    def extract_hostgroup_proxy_host(hostgroup)
+      asset = hostgroup.asset
+      if asset && asset.proxy_url
+        proxy_host = hostgroup.asset.server
+      elsif
+        hostgroup.puppet_proxy && (url = hostgroup.puppet_proxy.url).present?
+        proxy_host = URI.parse(url).host
+      end
+      proxy_host || nil
+    end
+
+    def extract_hostgroup_proxy_port(hostgroup)
+      asset = hostgroup.asset
+      if asset && asset.proxy_url
+        proxy_port = hostgroup.asset.port
+      elsif
+      hostgroup.puppet_proxy && (url = hostgroup.puppet_proxy.url).present?
+        proxy_port = URI.parse(url).port
+      end
+      proxy_port || nil
     end
   end
 end

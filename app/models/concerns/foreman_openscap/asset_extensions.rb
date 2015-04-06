@@ -29,7 +29,7 @@ module ForemanOpenscap
     end
 
     def proxy_url
-      proxy.url if proxy
+      proxy.url if proxy && proxy.url
     end
 
     def server
