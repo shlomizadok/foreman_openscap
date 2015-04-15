@@ -16,7 +16,7 @@ In the current state of foreman_openscap, a user can upload scap_content to fore
 
 Design
 ------
-![scap design](/static/images/scap_design.png)
+![scap design]({{ site.baseurl }}static/images/scap_design.png)
 
 A user uploads scap content and creates policy. The policy is configuring puppet module with the policy id, policy profile and file location. This configuration is applied to foreman_scap_client.
 
