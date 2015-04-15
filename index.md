@@ -3,7 +3,7 @@ layout: default
 title: About
 skip-title: true
 sharing: true
-baseurl: /foreman_openscap/
+baseurl: /foreman_openscap
 ---
 
 Foreman Remote Execution

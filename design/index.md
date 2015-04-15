@@ -4,7 +4,9 @@ title: Design
 countheads: true
 toc: true
 comments: true
-baseurl: /foreman_openscap/
+baseurl: /foreman_openscap
+proxy_url: https://\<proxy_url\>/compliance/policies/\<policy_id\>/content
+foreman_url: https://\<foreman_url\>/api/compliance/policies/\<policy_id\>/content
 ---
 
 Distribute SCAP content
@@ -23,7 +25,7 @@ A user uploads scap content and creates policy. The policy is configuring puppet
 **Content distribution:**
 
 - Expose a url on Satellite for downloading the scap file for the policy (/api/compliance/policies/<policy_id>/content)
-- OpenSCAP plugin on Proxy serves as a (dumb) proxy to the above url (meaning, calling something like: https://<proxy_url>/compliance/policies/<policy_id>/content will fetch the xml from https://<foreman_url>/api/compliance/policies/<policy_id>/content)
+- OpenSCAP plugin on Proxy serves as a (dumb) proxy to the above url (meaning, calling something like: {{page.proxy_url}} will fetch the xml from {{page.foreman_url}})
 - When foreman_scap_client starts running, it checks if the file configured by puppet exists. If it exists, it will resume operation. If it doesn't exist, it will download the file from the Proxy and resume its operation.
 
 User Stories
@@ -36,7 +38,7 @@ User Stories
 - As a user I want that scap content will be distributed to the client hosts when I assign 
   a policy to a host / hostgroup
 
-- As a user I want the proxy to serve a proxy for networks without direct connection to Foreman
+- As a user I want to automatically configure download url for foreman_scap_client
 
 
 
