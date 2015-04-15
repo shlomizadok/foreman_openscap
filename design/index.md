@@ -1,6 +1,7 @@
 ---
 layout: page
 title: Design
+pagename: foreman_openscap design proposal
 countheads: true
 toc: true
 comments: true

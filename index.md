@@ -6,8 +6,9 @@ sharing: true
 baseurl: /foreman_openscap
 ---
 
-Foreman Remote Execution
-========================
+Foreman OpenScap design
+=======================
 
-The goal of this page is to prepare and design for the planned remote for
-execution features in the Foreman.
+This is a place holder for other meaningful stuff we'll put here in the future.
+
+In the meantime, visit our [design proposal](/design)
