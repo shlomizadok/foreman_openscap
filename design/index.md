@@ -4,6 +4,7 @@ title: Design
 countheads: true
 toc: true
 comments: true
+baseurl: /foreman_openscap/
 ---
 
 Distribute SCAP content
