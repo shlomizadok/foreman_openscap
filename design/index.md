@@ -48,7 +48,23 @@ Handle ARF reports
 
 Design
 ------
+![scap design]({{ site.baseurl }}static/images/reports_design.png)
+
+Client runs foreman_scap_client and uploads ARF report to the Smart Proxy.
+Smart-Proxy parses the report into JSON and posts it to Foreman.
+On success, the XML report is moved to reports directory. On Failure, it moves to spool directory for a later retry.
+HTML & XML versions of the ArfReport are available on the Smart Proxy.
 
 User Stories
 ------------
+
+- Process reports on proxy, output as json.
+
+- Send reports from proxy to foreman immediately.
+
+- ArfReport < Report (sti).
+
+- Migrate Scaptimony to foreman_openscap.
+
+- ArfReport HTML & XML available on proxy to view / download.
 
