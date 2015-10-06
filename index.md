@@ -11,4 +11,4 @@ Foreman OpenScap design
 
 This is a place holder for other meaningful stuff we'll put here in the future.
 
-In the meantime, visit our [design proposal](/design)
+In the meantime, visit our [design proposal]({{ site.baseurl }}/design)
